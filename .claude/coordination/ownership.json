@@ -1,0 +1,6 @@
+{
+  "files": {},
+  "shared": ["package.json", "tsconfig.json", "package-lock.json"],
+  "shared_owner": "lead",
+  "EOF": "OWNERSHIP_COMPLETE"
+}

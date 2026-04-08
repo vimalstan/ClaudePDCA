@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebSearch",
+      "Read(//<project-path>/**)",
+      "Read(//<home>/.claude/**)"
+    ],
+    "additionalDirectories": []
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"IMPORTANT: (1) Query CodeSight wiki index + basic-memory recall for project context. (2) Check for .claude/scratchpad.md — if exists, this is a resumed task. (3) Check .claude/last-cleanup.json — if stale, run cleanup in parallel. (4) Check token budget of rules/ files. (5) Suggest chat name: [Category] verb thing — YYYY-MM-DD. (6) Recommend model: Opus (plan/check/adversarial), Sonnet (build/setup/ship), Haiku (trivial). (7) Route: implementation → setup skill, research → proceed, resumed → continue from scratchpad.\"}}'",
+            "timeout": 5,
+            "statusMessage": "Setting up session..."
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreCompact\",\"additionalContext\":\"Context is about to be compressed. UPDATE .claude/scratchpad.md with: task name, status, completed steps, current focus, decisions made, blockers, files touched, next steps. Do NOT flush to basic-memory — that happens at phase gates only.\"}}'",
+            "timeout": 5,
+            "statusMessage": "Preserving context..."
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostCompact\",\"additionalContext\":\"Context was just compacted. (1) Read .claude/scratchpad.md for task state. (2) Query basic-memory recall if needed. (3) Verify git position: which branch, which worktree. (4) Resume from Next Steps in scratchpad. Do NOT re-read files already read. Do NOT re-plan work already planned.\"}}'",
+            "timeout": 5,
+            "statusMessage": "Restoring context..."
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo Permission requested",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "model": "sonnet"
+}

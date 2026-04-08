@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# CodeSight
+.codesight/
+
+# Worktrees
+.worktrees/
+
+# Prototypes
+.claude/prototypes/
+
+# Per-task ephemeral
+.claude/gates/
+.claude/scratchpad.md
+.claude/task-state.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
+__pycache__/
+.dart_tool/
+bin/
+obj/

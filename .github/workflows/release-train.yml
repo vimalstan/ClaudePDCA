@@ -1,0 +1,70 @@
+name: Release Train
+
+on:
+  schedule:
+    # Run nightly at 2am UTC — adjust to your timezone
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Run integration tests
+        run: npm run test:integration || true
+
+      - name: Run E2E tests
+        run: npx playwright test || true
+
+      - name: Security scan
+        run: |
+          npm audit --audit-level=high
+          npx trivy fs --severity HIGH,CRITICAL .
+
+      # Uncomment when staging environment exists:
+      # - name: Performance tests
+      #   run: npx k6 run tests/load/smoke.js
+
+  release:
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Determine version bump
+        id: version
+        run: |
+          # Analyze conventional commits since last tag
+          # feat = minor, fix = patch, BREAKING CHANGE = major
+          echo "Determine version from conventional commits"
+          # Replace with actual semver tool (e.g., semantic-release)
+
+      - name: Create release tag
+        run: |
+          # Tag and create GitHub release
+          # Replace with actual release automation
+          echo "Tag release/vX.Y.Z"
+
+      # Uncomment when deploy target exists:
+      # - name: Deploy
+      #   run: echo "Deploy to production"
+
+      # - name: Smoke tests
+      #   run: npx playwright test --grep @smoke

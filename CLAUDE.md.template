@@ -1,0 +1,51 @@
+# [Project Name]
+
+[One-line project description]
+
+## Quick Reference
+
+| Layer      | Stack                    |
+|------------|--------------------------|
+| Backend    | [e.g., Node.js, Express] |
+| Frontend   | [e.g., React, TypeScript]|
+| Database   | [e.g., PostgreSQL]       |
+| Validation | [e.g., Zod]              |
+| Auth       | [e.g., JWT]              |
+
+## Domain Boundaries
+
+Define your domain boundaries here. These determine file ownership for parallel agents and lens routing for reviews.
+
+| Domain | Path pattern | Owner |
+|--------|-------------|-------|
+| [e.g., auth] | `src/auth/*` | [team/agent] |
+| [e.g., reports] | `src/reports/*` | [team/agent] |
+
+## Running the Project
+
+```bash
+# Backend
+cd backend && npm install && npm run dev
+
+# Frontend
+cd frontend && npm install && npm run dev
+```
+
+## Conventions
+
+- [List project-specific conventions here]
+- [e.g., Service pattern: class-based with context injection]
+- [e.g., Controller pattern: thin HTTP handlers only]
+
+## NFR Baselines
+
+| Metric | Target |
+|--------|--------|
+| API response time (p95) | [e.g., < 200ms] |
+| Test coverage | [e.g., > 80%] |
+| Bundle size | [e.g., < 500KB] |
+| Lighthouse performance | [e.g., > 90] |
+
+## Maintenance
+
+Update this file after every significant change to the codebase.
