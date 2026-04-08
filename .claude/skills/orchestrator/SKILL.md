@@ -82,10 +82,31 @@ Defined in `lens-routing.md`.
   "current_phase": "Plan | Do | Check | Act",
   "current_sub_phase": "string",
   "increment": "number",
+  "status": "running | completed | error",
+  "started_at": "ISO 8601 timestamp",
+  "updated_at": "ISO 8601 timestamp",
+  "completed_at": "ISO 8601 timestamp or null",
   "gate_results": ["string"],
   "escalation_history": ["string"],
   "EOF": "STATE_COMPLETE"
 }
 ```
 
-Missing EOF = invalid state file = halt and escalate.
+### Validation Rules
+
+- Missing EOF = invalid state file = halt and escalate
+- `status: running` + `updated_at` older than 60 minutes = stale task, likely crashed → orchestrator flags for recovery
+- `status: error` = previous run failed → orchestrator presents error context and asks whether to retry or escalate
+
+### Recovery
+
+On SessionStart, if task-state.json exists:
+1. Check status — if `running` + stale → mark `error`, surface to user
+2. If `error` → offer: retry from last completed gate, or escalate
+3. If `completed` → leftover from prior task, clean up
+
+## Delta Pattern for Learnings
+
+Learnings index and detail files use append-only writes during a task. Full compaction runs during first-session-of-day cleanup:
+- Append: new entries added to end of file (cheap, no full rewrite)
+- Compact: deduplicate, remove pruned candidates, rebuild index (periodic, cleanup job)
