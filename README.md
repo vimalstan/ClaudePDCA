@@ -1,4 +1,4 @@
-# Claude Way of Work (ClaudeWoW)
+# Claude PDCA (Plan - Develop - Check - Act)
 
 A PDCA-based development workflow skeleton for Claude Code. Provides structured skills, enforcement mechanisms, and continuous improvement for building high-quality software with AI agent swarms.
 
