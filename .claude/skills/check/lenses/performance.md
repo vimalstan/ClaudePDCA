@@ -7,3 +7,4 @@
 - Network round-trips that could be batched?
 - Pagination missing on list endpoints?
 - Select * where specific columns would suffice?
+- Data-aggregation endpoints (dashboards, reports, list views) missing query count assertions in their integration tests?

@@ -10,6 +10,9 @@ Living document. Agent proposes changes via candidates. Human approves promotion
 - Changes touch security-critical paths (auth, payments, encryption, PII handling)
 - New public API contract consumed by external clients
 - Prior learnings flag this area as error-prone
+- Changes to middleware/request pipeline ordering
+- Changes to data access scoping mechanisms or tenant resolution logic
+- Changes to how security-critical services are composed, wired, or made available to consuming code
 
 **Stay with standard build if ALL:**
 - Changes isolated to a single domain boundary
