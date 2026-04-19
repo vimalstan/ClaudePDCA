@@ -16,6 +16,7 @@
 .claude/gates/
 .claude/scratchpad.md
 .claude/task-state.json
+.claude/artifacts/audit.log
 
 # OS
 .DS_Store
