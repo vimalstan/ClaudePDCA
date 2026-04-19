@@ -34,7 +34,14 @@ All three required. Missing any = invalid gate = blocked.
 
 ## Convergence Definition
 
-No Critical or High findings in 2 consecutive iterations.
+**Convergence is not the goal; artifact quality is.** "No more findings" signals attack stopped, not quality ceiling reached.
+
+Exit requires ALL of:
+- No Critical or High findings in 2 consecutive iterations, AND
+- Last iteration cites the tactic (lens / freeform angle) that produced its findings — passive re-reading does not count, AND
+- For Medium+ blast radius artifacts (3+ consumers, cross-module, multi-tenant, or externally exposed): red-team-review's full exit criteria met — hostile-persona pass, future-failure inventory (≥5 scenarios disposed), minimum iteration floor.
+
+Passive Minor-only iterations do NOT count toward convergence. If the last iteration's findings are sparse because probing stopped rather than artifact improved, escalate to red-team-review before marking CONVERGED.
 
 ## Post-Convergence
 
