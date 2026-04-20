@@ -51,7 +51,7 @@ Review the registry periodically: are `emerging` entries still at 2 occurrences,
 
 ## Integration with `positioning`
 
-The [positioning](../skills/positioning/SKILL.md) skill's **Precedent scan** checks this registry first, then greps the codebase. A registered pattern short-circuits the grep. If grep surfaces a pattern that isn't here, add it.
+The `positioning` skill (user-level, at `~/.claude/skills/positioning/`) runs a **Precedent scan** that checks this registry first, then greps the codebase. A registered pattern short-circuits the grep. If grep surfaces a pattern that isn't here, add it.
 
 ## When it's an anti-pattern, not a pattern
 
