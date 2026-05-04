@@ -41,6 +41,26 @@ Where the shared primitive lives + how to use it.
 Anti-application — cases where the pattern would be wrong.
 ```
 
+## Candidates (pre-emerging)
+
+[`.claude/candidates.md`](../candidates.md) stages shape observations that haven't yet earned an `emerging` entry here — typically single-occurrence findings from red-team passes, dogfooding gaps, or check-skill review where the observer suspects recurrence is coming but the rule-of-three's 2nd hit isn't in yet.
+
+A candidate is **pre-emerging**: it's worth tracking so future-you recognizes the 2nd occurrence when it appears, but not yet worth abstracting or codifying. On 2nd occurrence, promote to a full `<pattern-name>.md` entry here with `status: emerging` (or to `.claude/rules/` if it's a missing-guardrail per the anti-pattern carve-out below).
+
+**Entry format** (see C-001 for an example):
+```markdown
+## C-NNN: <name>
+
+- **First seen:** YYYY-MM-DD — <where + how observed>
+- **Shape:** <1–2 sentences>
+- **Gap:** <what existing system this exposes>
+- **Likely promotion path:** <pattern entry | rule update | deprecate>
+- **Promote when:** <2nd-occurrence trigger>
+- **TTL:** 5 task-close cycles from <date>. Prune if no 2nd occurrence by then.
+```
+
+The 5-cycle TTL keeps `candidates.md` from accumulating speculation — observations that don't recur are noise, not signal.
+
 ## Kaizen Loop
 
 At task-close, ask: **"What pattern did I just use that isn't in the registry?"**
